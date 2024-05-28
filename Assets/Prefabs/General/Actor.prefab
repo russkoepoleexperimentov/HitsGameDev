@@ -15,9 +15,11 @@ GameObject:
   - component: {fileID: 245480960197135231}
   - component: {fileID: 6394060309554612768}
   - component: {fileID: 2956049417940619907}
+  - component: {fileID: 2769765800679434376}
+  - component: {fileID: 2599804352905422782}
   m_Layer: 0
   m_Name: Actor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,9 +151,9 @@ MonoBehaviour:
       m_Action: Movement
       m_Flags: 8
     m_Flags: 0
-  _accelCoefficient: 0.2
-  _frictionCoefficient: 0.2
-  _movementSpeed: 5
+  _accelCoefficient: 0.5
+  _frictionCoefficient: 0.4
+  _movementSpeed: 4.5
 --- !u!114 &245480960197135231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +255,124 @@ MonoBehaviour:
   _raycast: {fileID: 2071917693182254040}
   _camera: {fileID: 3334987552617136549}
   _mouseLook: {fileID: 245480960197135231}
+--- !u!114 &2769765800679434376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264875187808855667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3760d332e81774fa42a38ab4ab82cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement: {fileID: 5600831498844015901}
+  _stepLength: 1.8
+  _clips:
+  - {fileID: 8300000, guid: a03290662ce0e7c4aa61de29ef4b54b2, type: 3}
+  - {fileID: 8300000, guid: 6e2ae1dbe8e7e8e4787a2143530d1e66, type: 3}
+  - {fileID: 8300000, guid: ee30beda0106f6642a4308a229a03eb7, type: 3}
+  - {fileID: 8300000, guid: df32b55f41108cc4b99859cc53d658db, type: 3}
+  - {fileID: 8300000, guid: 1ae07d0a689121f43b34309d3bb6cdb8, type: 3}
+  - {fileID: 8300000, guid: 4eb0c4ca02edc524f9782e6e6b4c4a4e, type: 3}
+  _source: {fileID: 2599804352905422782}
+--- !u!82 &2599804352905422782
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264875187808855667}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.39
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7763693036742592417
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,7 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movement: {fileID: 5600831498844015901}
-  _velocityMultiplier: 0.2
+  _velocityMultiplier: 1.5
   _amount: {x: 0.1, y: 0.05}
 --- !u!1 &8940036129370163112
 GameObject:
