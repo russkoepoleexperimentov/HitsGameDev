@@ -10,9 +10,12 @@ namespace Actor
     public class ActorMovement : MonoBehaviour
     {
         [SerializeField] private InputAction _movement;
+        [SerializeField] private InputAction _jump;
         [SerializeField, Range(0, 1)] private float _accelCoefficient = 0.5f;
         [SerializeField, Range(0, 1)] private float _frictionCoefficient = 0.2f;
         [SerializeField] private float _movementSpeed = 5;
+        [SerializeField] private float _airMovementSpeed = 3;
+        [SerializeField] private float _jumpForce = 500;
 
         private Rigidbody _rigidbody;
         private CapsuleCollider _collider;
@@ -33,6 +36,16 @@ namespace Actor
             _collider.material = new PhysicMaterial() { staticFriction = 1, dynamicFriction = 0 };
 
             _movement.Enable();
+            _jump.Enable();
+        }
+
+        private void Update()
+        {
+            if (_jump.WasPressedThisFrame() && _onGround)
+            {
+                var force = _jumpForce * Vector3.up;
+                _rigidbody.AddForce(force, ForceMode.Impulse);
+            }
         }
 
         private void FixedUpdate()
@@ -56,6 +69,25 @@ namespace Actor
                     force.y = 0;
 
                     _rigidbody.AddForce(force, ForceMode.Impulse);
+                }
+            }
+            else
+            {
+                if (input.sqrMagnitude > 0) 
+                {
+                    var velocity = _rigidbody.velocity;
+                    var desiredVelocity = (Forward * input.y + Right * input.x) * _airMovementSpeed;
+                    var force = desiredVelocity - velocity;
+                    force.y = 0;
+
+                    _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
+                }
+                else
+                {
+                    var force = -_rigidbody.velocity * _frictionCoefficient;
+                    force.y = 0;
+
+                    //_rigidbody.AddForce(force, ForceMode.Impulse);
                 }
             }
         }
