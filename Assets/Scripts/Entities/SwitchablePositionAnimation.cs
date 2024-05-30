@@ -7,6 +7,11 @@ public class SwitchablePositionAnimation : MonoBehaviour
     [SerializeField] private Vector3 _engagedPosition;
     [SerializeField] private float _speed = 0.2f;
 
+    private void Start()
+    {
+        SetState(false);
+    }
+
     public void SetState(bool state)
     {
         StopAllCoroutines();
@@ -23,5 +28,15 @@ public class SwitchablePositionAnimation : MonoBehaviour
             yield return null;
         }
         transform.localPosition = target;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        var offset = transform.parent ? transform.parent.position : Vector3.zero;
+        var size = Vector3.one * 0.2f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(offset + _disengagedPosition, size);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawCube(offset + _engagedPosition, size);
     }
 }

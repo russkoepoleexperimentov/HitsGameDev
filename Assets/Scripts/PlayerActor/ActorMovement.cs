@@ -17,6 +17,8 @@ namespace Actor
         private Rigidbody _rigidbody;
         private CapsuleCollider _collider;
 
+        private bool _onGround;
+
         private Vector3 Forward => transform.forward;
         private Vector3 Right => transform.right;
 
@@ -37,22 +39,35 @@ namespace Actor
         {
             var input = _movement.ReadValue<Vector2>();
 
-            if (input.sqrMagnitude > 0)
+            if (_onGround)
             {
-                var velocity = _rigidbody.velocity;
-                var desiredVelocity = (Forward * input.y + Right * input.x) * _movementSpeed;
-                var force = desiredVelocity - velocity;
-                force.y = 0;
+                if (input.sqrMagnitude > 0)
+                {
+                    var velocity = _rigidbody.velocity;
+                    var desiredVelocity = (Forward * input.y + Right * input.x) * _movementSpeed;
+                    var force = desiredVelocity - velocity;
+                    force.y = 0;
 
-                _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
-            }
-            else
-            {
-                var force = -_rigidbody.velocity * _frictionCoefficient;
-                force.y = 0;
+                    _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
+                }
+                else
+                {
+                    var force = -_rigidbody.velocity * _frictionCoefficient;
+                    force.y = 0;
 
-                _rigidbody.AddForce(force, ForceMode.Impulse);
+                    _rigidbody.AddForce(force, ForceMode.Impulse);
+                }
             }
+        }
+
+        private void OnCollisionStay(Collision collision)
+        {
+            _onGround = true;
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            _onGround = false;
         }
     }
 }
