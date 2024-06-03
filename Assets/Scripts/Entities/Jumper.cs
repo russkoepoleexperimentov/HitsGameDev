@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using General;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Jumper : MonoBehaviour
 {
     [SerializeField] private Vector3 _direction = Vector3.forward + Vector3.up;
     [SerializeField] private float _velocity;
+    [SerializeField] private AudioClip _clip;
+    [SerializeField] private UnityEvent _jumpPerformed;
 
     [Header("Gizmos")]
     [SerializeField] private float _debugFlyTime = 3f;
@@ -27,10 +29,22 @@ public class Jumper : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.attachedRigidbody)
+        var body = other.attachedRigidbody;
+
+        if (body)
         {
+
+            var grabber = SessionProvider.Current.Grabber;
+
+            if (body == grabber.Grabbed)
+                grabber.Drop();
+
             var velo = _direction.normalized * _velocity;
-            other.attachedRigidbody.velocity = velo;
+            body.velocity = velo;
+            body.angularVelocity = Vector3.zero;
+
+            _jumpPerformed?.Invoke();
+            AudioSource.PlayClipAtPoint(_clip, transform.position);
         }
     }
 }

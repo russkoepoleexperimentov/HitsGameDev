@@ -29,6 +29,8 @@ namespace Interaction
         private Rigidbody _grabbed;
         private Joint _joint;
 
+        public Rigidbody Grabbed => _grabbed;
+
         public bool IsCarrying => _grabbed != null;
 
         private void Start()

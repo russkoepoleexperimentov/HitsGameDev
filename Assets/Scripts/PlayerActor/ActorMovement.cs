@@ -1,3 +1,4 @@
+using General;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,8 @@ namespace Actor
             _collider.material = new PhysicMaterial() { staticFriction = 1, dynamicFriction = 0 };
 
             _movement.Enable();
+
+            SessionProvider.Current.SetActor(gameObject);
             _jump.Enable();
         }
 
@@ -75,12 +78,9 @@ namespace Actor
             {
                 if (input.sqrMagnitude > 0) 
                 {
-                    var velocity = _rigidbody.velocity;
                     var desiredVelocity = (Forward * input.y + Right * input.x) * _airMovementSpeed;
-                    var force = desiredVelocity - velocity;
-                    force.y = 0;
 
-                    _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
+                    _rigidbody.AddForce(desiredVelocity * Time.deltaTime, ForceMode.Impulse);
                 }
                 else
                 {

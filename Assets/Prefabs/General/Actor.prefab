@@ -151,9 +151,28 @@ MonoBehaviour:
       m_Action: Movement
       m_Flags: 8
     m_Flags: 0
+  _jump:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ab3ee31d-d005-40c7-a850-22ff46dfd66f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: cd1f4d0f-fa01-438b-b879-7005c3075851
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
+    m_Flags: 0
   _accelCoefficient: 0.5
   _frictionCoefficient: 0.4
   _movementSpeed: 4.5
+  _airMovementSpeed: 3
+  _jumpForce: 18
 --- !u!114 &245480960197135231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,7 +466,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

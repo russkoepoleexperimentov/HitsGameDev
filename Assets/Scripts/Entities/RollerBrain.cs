@@ -80,7 +80,7 @@ public class RollerBrain : MonoBehaviour, IGrabRayContext
 
             if (_physgun.Grabbed == null)
             {
-                var vel = _roller.Rigidbody.velocity;
+                var vel = _roller.Rigidbody?.velocity ?? Vector3.zero;
                 if (vel.sqrMagnitude > 0.2f)
                     target = vel;
                 else

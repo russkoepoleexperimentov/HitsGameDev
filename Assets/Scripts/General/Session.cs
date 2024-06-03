@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interaction;
 using UnityEngine;
 
 namespace General
  {
     public class Session
     {
-        public Session() 
+        public ObjectGrabber Grabber { get; private set; }
+
+        public Session() { 
+        }
+
+        public void SetActor(GameObject actor)
         {
-            
+            Grabber = actor.GetComponent<ObjectGrabber>();
         }
     }
 }

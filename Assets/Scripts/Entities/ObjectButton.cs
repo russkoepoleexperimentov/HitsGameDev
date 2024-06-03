@@ -1,19 +1,13 @@
 using UnityEngine;
-using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class ObjectButton : MonoBehaviour
+public class ObjectButton : BaseActivator
 {
-    [SerializeField] private UnityEvent _onPress;
-    [SerializeField] private UnityEvent _onRelease;
     [SerializeField] private float _massThreshold = 4f;
     [SerializeField] private AudioClip _pressSound;
     [SerializeField] private AudioClip _releaseSound;
 
     private HashSet<Rigidbody> _bodies;
-
-    public UnityEvent Press => _onPress;
-    public UnityEvent Release => _onRelease;
 
     private void Start()
     {
@@ -27,7 +21,7 @@ public class ObjectButton : MonoBehaviour
 
         if (_bodies.Count == 0)
         {
-            _onPress.Invoke();
+            _activate?.Invoke();
             AudioSource.PlayClipAtPoint(_pressSound, transform.position);
         }
 
@@ -43,7 +37,7 @@ public class ObjectButton : MonoBehaviour
 
         if(_bodies.Count == 0)
         {
-            _onRelease.Invoke();
+            _deactivate?.Invoke();
             AudioSource.PlayClipAtPoint(_releaseSound, transform.position);
         }
     }
