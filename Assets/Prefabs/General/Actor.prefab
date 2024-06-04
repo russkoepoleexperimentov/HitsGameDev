@@ -173,6 +173,9 @@ MonoBehaviour:
   _movementSpeed: 4.5
   _airMovementSpeed: 3
   _jumpForce: 18
+  _groundCheckRadius: 0.29
+  _groundCheckHeight: 0.91
+  _groundCheckOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &245480960197135231
 MonoBehaviour:
   m_ObjectHideFlags: 0

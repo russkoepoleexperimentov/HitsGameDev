@@ -19,7 +19,7 @@ namespace Actor
             var velocity = _movement.Velocity;
             velocity.y = 0;
 
-            if(velocity.sqrMagnitude > VELOCITY_THRESHOLD)
+            if(_movement.OnGround && velocity.sqrMagnitude > VELOCITY_THRESHOLD)
             {
                 _stepProgress += velocity.magnitude * _velocityMultiplier * Time.deltaTime;
 

@@ -18,6 +18,10 @@ namespace Actor
         [SerializeField] private float _airMovementSpeed = 3;
         [SerializeField] private float _jumpForce = 500;
 
+        [SerializeField] private float _groundCheckRadius = 0.35f;
+        [SerializeField] private float _groundCheckHeight = 0.81f;
+        [SerializeField] private Vector3 _groundCheckOffset = Vector3.zero;
+
         private Rigidbody _rigidbody;
         private CapsuleCollider _collider;
 
@@ -27,6 +31,8 @@ namespace Actor
         private Vector3 Right => transform.right;
 
         public Vector3 Velocity => _rigidbody.velocity;
+
+        public bool OnGround => _onGround;
 
         private void Start()
         {
@@ -44,6 +50,8 @@ namespace Actor
 
         private void Update()
         {
+            GroundCheck();
+
             if (_jump.WasPressedThisFrame() && _onGround)
             {
                 var force = _jumpForce * Vector3.up;
@@ -92,14 +100,24 @@ namespace Actor
             }
         }
 
-        private void OnCollisionStay(Collision collision)
+        private void GroundCheck()
         {
-            _onGround = true;
+            var ray = GroundCheckRay();
+            _onGround = Physics.SphereCast(ray, _groundCheckRadius, out var hit,
+                (_groundCheckHeight - _groundCheckRadius), Physics.DefaultRaycastLayers, 
+                QueryTriggerInteraction.Ignore);
         }
 
-        private void OnCollisionExit(Collision collision)
+        private void OnDrawGizmosSelected()
         {
-            _onGround = false;
+            var ray = GroundCheckRay();
+            var start = ray.origin;
+            var end = ray.origin + ray.direction.normalized * (_groundCheckHeight - _groundCheckRadius);
+            Debug.DrawLine(start, end);
+            Gizmos.DrawWireSphere(end, _groundCheckRadius);
         }
+
+        private Ray GroundCheckRay() =>
+            new Ray(transform.position + _groundCheckOffset, Vector3.down);
     }
 }
