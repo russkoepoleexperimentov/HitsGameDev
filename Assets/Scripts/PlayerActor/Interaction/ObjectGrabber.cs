@@ -11,17 +11,19 @@ namespace Interaction
         [SerializeField] private float _rotationSensitivity = 3;
         [SerializeField] private float _massLimit = 25f;
         [SerializeField] private InputAction _rotateButton;
+        [SerializeField] private InputAction _throwButton;
 
         [Header("Joint drive properties")]
         [SerializeField] private float _jointDriveForce = 600;
         [SerializeField] private float _jointDriveDamping = 10;
-        [SerializeField] private float _throwForce = 100;
+        [SerializeField] private float _throwVelocity = 100;
 
         [Header("References")]
         [SerializeField] private Interaction _interaction;
         [SerializeField] private InteractionRaycast _raycast;
         [SerializeField] private Camera _camera;
         [SerializeField] private MouseLook _mouseLook;
+        [SerializeField] private ActorMovement _movement;
 
         private bool _rotate = false;
 
@@ -36,6 +38,7 @@ namespace Interaction
         private void Start()
         {
             _rotateButton.Enable();
+            _throwButton.Enable();
 
             var grabber = new GameObject("Grabber");
             grabber.AddComponent<Rigidbody>().isKinematic = true;
@@ -65,12 +68,18 @@ namespace Interaction
             HandleCarrying();
             HandleRotation();
 
-            /*if (_grabbed != null && _throwBinding.Pressed())
+            if (_grabbed != null)
             {
-                var body = _grabbed;
-                Drop();
-                body.AddForce(_camera.transform.forward * _throwForce);
-            }*/
+                if (_movement.OnGround && _movement.GroundInfo.rigidbody == _grabbed)
+                    Drop();
+
+                if (_throwButton.WasPressedThisFrame())
+                {
+                    var body = _grabbed;
+                    Drop();
+                    body.AddForce(_camera.transform.forward * _throwVelocity, ForceMode.Acceleration);
+                }
+            }
         }
 
         private void HandleRotation()

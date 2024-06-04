@@ -33,12 +33,15 @@ namespace Actor
         private bool _onGround;
         private bool _onCrouch = false;
 
+        private RaycastHit _groundInfo;
+
         private Vector3 Forward => transform.forward;
         private Vector3 Right => transform.right;
 
         public Vector3 Velocity => _rigidbody.velocity;
 
         public bool OnGround => _onGround;
+        public RaycastHit GroundInfo => _groundInfo;
 
         private void Start()
         {
@@ -138,7 +141,7 @@ namespace Actor
         private void GroundCheck()
         {
             var ray = GroundCheckRay();
-            _onGround = Physics.SphereCast(ray, _groundCheckRadius, out var hit,
+            _onGround = Physics.SphereCast(ray, _groundCheckRadius, out _groundInfo,
                 (_groundCheckHeight - _groundCheckRadius), Physics.DefaultRaycastLayers, 
                 QueryTriggerInteraction.Ignore);
         }

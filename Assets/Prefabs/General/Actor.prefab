@@ -168,11 +168,30 @@ MonoBehaviour:
       m_Action: Jump
       m_Flags: 0
     m_Flags: 0
+  _crouch:
+    m_Name: Crouch
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a55526a0-dde8-42c7-8d26-7f2d5a51739f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 16f2fd72-c756-4557-ace8-669e636946a7
+      m_Path: <Keyboard>/c
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Crouch
+      m_Flags: 0
+    m_Flags: 0
   _accelCoefficient: 0.5
   _frictionCoefficient: 0.4
   _movementSpeed: 4.5
   _airMovementSpeed: 3
+  _crouchMovementSpeed: 3.5
   _jumpForce: 18
+  _crouchHeight: 1
   _groundCheckRadius: 0.29
   _groundCheckHeight: 0.91
   _groundCheckOffset: {x: 0, y: 0, z: 0}
@@ -270,13 +289,31 @@ MonoBehaviour:
       m_Action: Rotate Button
       m_Flags: 0
     m_Flags: 0
+  _throwButton:
+    m_Name: Throw Button
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6df6f207-147a-4da8-9af0-bb450234d060
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: dfa03fb5-2471-45f5-8d38-6c32564c30fb
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Throw Button
+      m_Flags: 0
+    m_Flags: 0
   _jointDriveForce: 2500
   _jointDriveDamping: 50
-  _throwForce: 100
+  _throwVelocity: 200
   _interaction: {fileID: 6394060309554612768}
   _raycast: {fileID: 2071917693182254040}
   _camera: {fileID: 3334987552617136549}
   _mouseLook: {fileID: 245480960197135231}
+  _movement: {fileID: 5600831498844015901}
 --- !u!114 &2769765800679434376
 MonoBehaviour:
   m_ObjectHideFlags: 0
