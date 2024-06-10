@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class CodeLock : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
-    [SerializeField] protected UnityEvent _activate;
+    [SerializeField] private UnityEvent _onCorrectCode;
+    [SerializeField] private UnityEvent _onIncorrectCode;
     [SerializeField] private List<int> _correctCode;
     [SerializeField] private AudioClip _incorrectCodeSound;
     [SerializeField] private AudioClip _correctCodeSound;
@@ -16,6 +17,7 @@ public class CodeLock : MonoBehaviour
     private void Start()
     {
         _entered = new List<int>();
+        _text.text = "";
     }
 
     public void EnterDigit(int num)
@@ -27,19 +29,30 @@ public class CodeLock : MonoBehaviour
         }
         if (_entered.Count == _correctCode.Count)
         {
-            if (_entered != _correctCode)
+            var codeStr = string.Join("", _entered.ToArray());
+            var correctCodeStr = string.Join("", _correctCode.ToArray());
+
+            if (correctCodeStr != codeStr)
             {
                 AudioSource.PlayClipAtPoint(_incorrectCodeSound, transform.position);
-                _text.text = "";
-                _entered.Clear();
+                StartCoroutine(ShowText("ERR"));
+                _onIncorrectCode?.Invoke();
             }
-
             else
             {
-                _activate?.Invoke();
                 AudioSource.PlayClipAtPoint(_correctCodeSound, transform.position);
+                StartCoroutine(ShowText("CORR"));
+                _onCorrectCode?.Invoke();
             }
         }
     }
 
+    private IEnumerator ShowText(string text)
+    {
+        yield return new WaitForSeconds(0.1f);
+        _entered.Clear();
+        _text.text = text;
+        yield return new WaitForSeconds(0.5f);
+        _text.text = "";
+    }
 }
