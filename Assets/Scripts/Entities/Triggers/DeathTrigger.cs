@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class DeathTrigger : MonoBehaviour
 {
-    [SerializeField] private Transform _safeSpot;
+    //[SerializeField] private Transform _safeSpot;
+    [SerializeField] private float _damage = 100;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,10 +15,11 @@ public class DeathTrigger : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            ScreenFade.Singleton.InOut(() =>
+            other.GetComponent<PlayerHealth>().TakeDamage(_damage);
+            /*ScreenFade.Singleton.InOut(() =>
             {
                 other.transform.position = _safeSpot.position;
-            });
+            });*/
         }
     }
 }

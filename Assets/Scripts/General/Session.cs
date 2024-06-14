@@ -1,5 +1,6 @@
 using Interaction;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace General
  {
@@ -13,6 +14,13 @@ namespace General
         public void SetActor(GameObject actor)
         {
             Grabber = actor.GetComponent<ObjectGrabber>();
+
+            actor.GetComponent<PlayerHealth>().Die += () => {
+                ScreenFade.Singleton.InOut(() =>
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                });
+            };
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
+using UnityEngine.Windows;
 
 namespace Actor
 {
@@ -16,10 +18,12 @@ namespace Actor
         [SerializeField, Range(0, 1)] private float _accelCoefficient = 0.5f;
         [SerializeField, Range(0, 1)] private float _frictionCoefficient = 0.2f;
         [SerializeField] private float _movementSpeed = 5;
+        [SerializeField] private float _ladderMovementSpeed = 6;
         [SerializeField] private float _airMovementSpeed = 3.5f;
         [SerializeField] private float _crouchMovementSpeed = 3.5f;
         [SerializeField] private float _jumpForce = 500;
         [SerializeField] private float _crouchHeight = 1.0f;
+        [SerializeField] private Transform _view;
 
         private float _originalHeight;
 
@@ -32,6 +36,12 @@ namespace Actor
 
         private bool _onGround;
         private bool _onCrouch = false;
+        private bool _onLadder = false;
+        private bool _whileOnLadderWasNotOnGround = false;
+
+        private Vector3 _usedLadderPosition;
+
+        private readonly Vector3 _ladderDirection = Vector3.up;
 
         private RaycastHit _groundInfo;
 
@@ -84,57 +94,63 @@ namespace Actor
         {
             var input = _movement.ReadValue<Vector2>();
 
-            if(_onCrouch)
+            if (_onLadder)
             {
-                if (input.sqrMagnitude > 0)
-                {
-                    var velocity = _rigidbody.velocity;
-                    var desiredVelocity = (Forward * input.y + Right * input.x) * _crouchMovementSpeed;
-                    var force = desiredVelocity - velocity;
-                    force.y = 0;
-
-                    _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
-                }
-                else
-                {
-                    var force = -_rigidbody.velocity * _frictionCoefficient;
-                    force.y = 0;
-
-                }
-            }
-            else if (_onGround)
-            {
-                if (input.sqrMagnitude > 0)
-                {
-                    var velocity = _rigidbody.velocity;
-                    var desiredVelocity = (Forward * input.y + Right * input.x) * _movementSpeed;
-                    var force = desiredVelocity - velocity;
-                    force.y = 0;
-
-                    _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
-                }
-                else
-                {
-                    var force = -_rigidbody.velocity * _frictionCoefficient;
-                    force.y = 0;
-
-                    _rigidbody.AddForce(force, ForceMode.Impulse);
-                }
+                LadderMovement(input);
             }
             else
             {
-                if (input.sqrMagnitude > 0) 
-                {
-                    var desiredVelocity = (Forward * input.y + Right * input.x) * _airMovementSpeed;
-
-                    _rigidbody.AddForce(desiredVelocity * Time.deltaTime, ForceMode.Impulse);
-                }
+                if (_onGround)
+                    GroundMovement(input, _onCrouch);
                 else
-                {
-                    var force = -_rigidbody.velocity * _frictionCoefficient;
-                    force.y = 0;
+                    AirMovement(input);
+            }
+        }
 
-                }
+        private void LadderMovement(Vector2 input)
+        {
+            AirMovement(input);
+            var dir = Vector3.Project(_view.forward, Vector3.up).normalized;
+            var desiredVelocity = _rigidbody.velocity * 0.2f;
+            desiredVelocity.y = 0;
+            desiredVelocity += dir * Mathf.Clamp01(input.y) * _ladderMovementSpeed;
+            var force = desiredVelocity - _rigidbody.velocity;
+
+            _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
+        }
+
+        private void GroundMovement(Vector2 input, bool crouch)
+        {
+            var speed = crouch ? _crouchMovementSpeed : _movementSpeed;
+
+            if (input.sqrMagnitude > 0)
+            {
+                var velocity = _rigidbody.velocity;
+                var desiredVelocity = (Forward * input.y + Right * input.x) * speed;
+                var force = desiredVelocity - velocity;
+                force.y = 0;
+
+                _rigidbody.AddForce(force * _accelCoefficient, ForceMode.Impulse);
+            }
+            else
+            {
+                var force = -_rigidbody.velocity * _frictionCoefficient;
+                force.y = 0;
+
+                _rigidbody.AddForce(force, ForceMode.Impulse);
+            }
+        }
+
+        private void AirMovement(Vector2 input)
+        {
+            if (input.sqrMagnitude > 0)
+            {
+                var desiredVelocity = (Forward * input.y + Right * input.x) * _airMovementSpeed;
+
+                var velocity = _rigidbody.velocity;
+                velocity.y = 0;
+
+                _rigidbody.AddForce(desiredVelocity * Time.deltaTime, ForceMode.VelocityChange);
             }
         }
 
@@ -153,6 +169,24 @@ namespace Actor
             var end = ray.origin + ray.direction.normalized * (_groundCheckHeight - _groundCheckRadius);
             Debug.DrawLine(start, end);
             Gizmos.DrawWireSphere(end, _groundCheckRadius);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == "Ladder")
+            {
+                _onLadder = true;
+                _rigidbody.useGravity = false;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Ladder")
+            {
+                _rigidbody.useGravity = true;
+                _onLadder = false;
+            }
         }
 
         private Ray GroundCheckRay() =>

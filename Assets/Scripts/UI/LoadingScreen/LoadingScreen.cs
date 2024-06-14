@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LoadingScreen : MonoBehaviour
@@ -43,12 +44,17 @@ public class LoadingScreen : MonoBehaviour
     private IEnumerator LoadQueue()
     {
         InitLoading();
-        while(_operationQueue.Count > 0)
+        while (_operationQueue.Count > 0)
         {
             var thing = _operationQueue.Dequeue();
             thing.Load();
-            yield return new WaitWhile(() => thing.Done == false);
+
+            while(thing.Done == false)
+            {
+                yield return null;
+            }
         }
+        yield return new WaitForSeconds(2f);
         HideAll();
     }
 

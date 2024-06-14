@@ -6,8 +6,11 @@ public class Laser : MonoBehaviour
 
     [SerializeField] private LineRenderer _renderer;
     [SerializeField] private int _maxReflections = 4;
+    [SerializeField] private float _damage = 500;
 
     private bool _enabled = false;
+
+    public float Damage => _damage;
 
     public bool Enabled
     {

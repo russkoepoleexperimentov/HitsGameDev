@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadingSceneOperation : ILoadingOperation
@@ -13,11 +13,13 @@ public class LoadingSceneOperation : ILoadingOperation
         _sceneName = sceneName;
     }
 
-    public async void Load()
+    public void Load()
     {
         var operation = SceneManager.LoadSceneAsync(_sceneName);
-        while(!operation.isDone) 
-            await Task.Delay(0);
-        _done = true;
+
+        operation.completed += (_) =>
+        {
+            _done = true;
+        };
     }
 }
