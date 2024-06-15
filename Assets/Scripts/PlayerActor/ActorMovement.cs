@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Utilities;
-using UnityEngine.Windows;
 
 namespace Actor
 {
@@ -18,6 +16,7 @@ namespace Actor
         [SerializeField, Range(0, 1)] private float _accelCoefficient = 0.5f;
         [SerializeField, Range(0, 1)] private float _frictionCoefficient = 0.2f;
         [SerializeField] private float _movementSpeed = 5;
+        [SerializeField] private float _noclipSpeed = 6;
         [SerializeField] private float _ladderMovementSpeed = 6;
         [SerializeField] private float _airMovementSpeed = 3.5f;
         [SerializeField] private float _crouchMovementSpeed = 3.5f;
@@ -37,11 +36,7 @@ namespace Actor
         private bool _onGround;
         private bool _onCrouch = false;
         private bool _onLadder = false;
-        private bool _whileOnLadderWasNotOnGround = false;
-
-        private Vector3 _usedLadderPosition;
-
-        private readonly Vector3 _ladderDirection = Vector3.up;
+        private bool _noclip = false;
 
         private RaycastHit _groundInfo;
 
@@ -88,11 +83,37 @@ namespace Actor
                 _onCrouch = false;
                 _collider.height = _originalHeight;
             }
+
+            if(Input.GetKeyDown(KeyCode.V))
+            {
+                _noclip = !_noclip;
+
+                if(_noclip)
+                {
+                    _rigidbody.isKinematic = true;
+                    _collider.enabled = false;
+                }
+                else
+                {
+                    _rigidbody.isKinematic = false;
+                    _collider.enabled = true;
+                }
+            }
         }
 
         private void FixedUpdate()
         {
             var input = _movement.ReadValue<Vector2>();
+
+            if(_noclip)
+            {
+                if (input.sqrMagnitude > 0)
+                {
+                    var dir = (_view.forward * input.y + transform.right * input.x).normalized;
+                    transform.Translate(dir * _noclipSpeed * Time.deltaTime, Space.World);
+                }
+                return;
+            }
 
             if (_onLadder)
             {
