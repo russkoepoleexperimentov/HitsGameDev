@@ -16,10 +16,11 @@ namespace General
             Grabber = actor.GetComponent<ObjectGrabber>();
 
             actor.GetComponent<PlayerHealth>().Die += () => {
-                ScreenFade.Singleton.InOut(() =>
-                {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                });
+                if(!actor.GetComponent<ActorCheckPoints>().Load())
+                    ScreenFade.Singleton.InOut(() =>
+                    {
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    });
             };
         }
     }
