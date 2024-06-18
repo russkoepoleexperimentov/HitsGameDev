@@ -17,7 +17,7 @@ public class ScreenFade : MonoBehaviour
         if (Singleton == null)
             Singleton = this;
         else
-            Destroy(gameObject);
+            Destroy(this);
     }
 
     private void Update()

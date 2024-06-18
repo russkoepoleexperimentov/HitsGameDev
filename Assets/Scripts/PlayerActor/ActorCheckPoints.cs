@@ -1,4 +1,5 @@
 ﻿using Actor;
+using EZCameraShake;
 using Interaction;
 using UnityEngine;
 
@@ -23,8 +24,8 @@ public class ActorCheckPoints : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F6)) Save();
-        if (Input.GetKeyDown(KeyCode.F7)) Load();
+        if (Input.GetKeyDown(KeyCode.X)) Save();
+        if (Input.GetKeyDown(KeyCode.Q)) Load();
     }
 
     // мчд - малая черная дыра если что)))))
@@ -41,6 +42,7 @@ public class ActorCheckPoints : MonoBehaviour
         _active = true;
         _checkPoint.gameObject.SetActive(true);
         AudioSource.PlayClipAtPoint(_placeClip, _checkPoint.position);
+        CameraShaker.Instance.ShakeOnce(2f, 3f, 0.05f, 0.5f);
     }
 
     public bool Load()
@@ -64,6 +66,7 @@ public class ActorCheckPoints : MonoBehaviour
                 _grabber.Drop();
 
             AudioSource.PlayClipAtPoint(_loadClip, _checkPoint.position);
+            CameraShaker.Instance.ShakeOnce(10f, 1, 0.1f, 1f);
 
             _inLoad = false;
         });

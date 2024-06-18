@@ -1,3 +1,4 @@
+using EZCameraShake;
 using General;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,6 +46,11 @@ public class Jumper : MonoBehaviour
 
             _jumpPerformed?.Invoke();
             AudioSource.PlayClipAtPoint(_clip, transform.position);
+        }
+
+        if(other.CompareTag("Player"))
+        {
+            CameraShaker.Instance.ShakeOnce(10f, 1, 0.1f, 1.5f);
         }
     }
 }
