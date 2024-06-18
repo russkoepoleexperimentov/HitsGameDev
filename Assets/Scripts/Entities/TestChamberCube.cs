@@ -31,7 +31,7 @@ public class TestChamberCube : MonoBehaviour
     {
         _rigidbody.useGravity = false;
         _rigidbody.velocity *= 0.4f;
-        Destroy(_collider);
+        _collider.isTrigger = true;
 
         AudioSource.PlayClipAtPoint(_removeClip, transform.position);
 
@@ -40,6 +40,8 @@ public class TestChamberCube : MonoBehaviour
             _renderer.material.color = Color.Lerp(Color.white, Color.black, t);
             yield return null;
         }
+
+        _rigidbody.isKinematic = true;
 
         Destroy(gameObject);
     }

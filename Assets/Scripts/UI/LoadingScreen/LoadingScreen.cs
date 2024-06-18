@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class LoadingScreen : MonoBehaviour
 {
     [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup _group;
-    [SerializeField] private GameObject _loadingElements; 
-    [SerializeField] private GameObject _keyPressElements; 
+    [SerializeField] private GameObject _loadingElements;
+
+    private const float _fadeTime = 0.3f;
 
     private Queue<ILoadingOperation> _operationQueue;
     private bool _loadingEnabled = false;
@@ -22,11 +22,11 @@ public class LoadingScreen : MonoBehaviour
         if(Instance == null)
             Instance = this;
         else
-            Destroy(Instance);
+            Destroy(gameObject);
 
         _operationQueue = new Queue<ILoadingOperation>();
 
-        HideAll();
+        _canvas.enabled = false;
     }
 
     public void AddToQueue(ILoadingOperation operation)
@@ -43,7 +43,17 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator LoadQueue()
     {
-        InitLoading();
+        _canvas.enabled = true;
+        _group.alpha = 0f;
+
+        for (float t = 0; t <= 1f; t += Time.deltaTime / _fadeTime)
+        {
+            _group.alpha = t;
+            yield return null;
+        }
+
+        _group.alpha = 1.0f;
+
         while (_operationQueue.Count > 0)
         {
             var thing = _operationQueue.Dequeue();
@@ -54,28 +64,17 @@ public class LoadingScreen : MonoBehaviour
                 yield return null;
             }
         }
-        yield return new WaitForSeconds(2f);
-        HideAll();
-    }
+        yield return new WaitForSeconds(1f);
 
-    private void InitLoading()
-    {
-        _canvas.enabled = true;
-        _group.alpha = 1.0f;
-        _loadingElements.SetActive(true);
-        _keyPressElements.SetActive(false);
-    }
+        for (float t = 0; t <= 1f; t += Time.deltaTime / _fadeTime) 
+        { 
+            _group.alpha = 1 - t;
+            yield return null;
+        }
 
-    private void InitKeyWaiting()
-    {
-        _loadingElements.SetActive(false);
-        _keyPressElements.SetActive(true);
-    }
+        _group.alpha = 0f;
 
-    private void HideAll()
-    {
         _canvas.enabled = false;
-        _group.alpha = 0;
     }
 }
 

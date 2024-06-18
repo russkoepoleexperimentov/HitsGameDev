@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour, ILaserHandler
 
         if(_health < 0)
         {
-            _movement.enabled = false;
+            //_movement.enabled = false;
             Die?.Invoke();
         }
     }
