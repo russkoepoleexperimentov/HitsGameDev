@@ -25,6 +25,9 @@ public class LaserGenerator : MonoBehaviour
         }
     }
 
+    public void Disable() => Enabled = false;
+    public void Enable() => Enabled = true;
+
     private void Start()
     {
         if(_audioSource)

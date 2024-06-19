@@ -373,7 +373,7 @@ MonoBehaviour:
   _accelCoefficient: 0.5
   _frictionCoefficient: 0.4
   _movementSpeed: 4.5
-  _noclipSpeed: 6
+  _noclipSpeed: 15
   _ladderMovementSpeed: 2
   _airMovementSpeed: 2
   _crouchMovementSpeed: 3.5
