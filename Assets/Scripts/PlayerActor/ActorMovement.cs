@@ -92,11 +92,13 @@ namespace Actor
                 {
                     _rigidbody.isKinematic = true;
                     _collider.enabled = false;
+                    AlertPopup.Instance.Show("Noclip ON", 0.5f);
                 }
                 else
                 {
                     _rigidbody.isKinematic = false;
                     _collider.enabled = true;
+                    AlertPopup.Instance.Show("Noclip OFF", 0.1f);
                 }
             }
         }

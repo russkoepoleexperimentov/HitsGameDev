@@ -15,6 +15,7 @@ public class ActorCheckPoints : MonoBehaviour
 
     private bool _active = true;
     private bool _inLoad = false;
+    private const string RESET_TRIGGER_NAME = "CheckPointReset";
 
     private void Start()
     {
@@ -25,15 +26,13 @@ public class ActorCheckPoints : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.X)) Save();
-        if (Input.GetKeyDown(KeyCode.Q)) Load();
+        if (Input.GetKeyDown(KeyCode.Q)) Load(true);
     }
-
-    // мчд - малая черная дыра если что)))))
     private void Save()
     {
         if(_movement.OnGround == false)
         {
-            AlertPopup.Instance.Show("Чтобы поставить МЧД, Вы должны находиться на поверхности!", 1.3f);
+            AlertPopup.Instance.Show("Чтобы поставить чекпоинт, Вы должны находиться на поверхности!", 1.3f);
             return;
         }
 
@@ -45,11 +44,11 @@ public class ActorCheckPoints : MonoBehaviour
         CameraShaker.Instance.ShakeOnce(2f, 3f, 0.05f, 0.5f);
     }
 
-    public bool Load()
+    public bool Load(bool alerts = false)
     {
         if (!_active)
         {
-            AlertPopup.Instance.Show("МЧД не выставлена.", 1.3f);
+            if(alerts)AlertPopup.Instance.Show("Чекпойнт не поставлен.", 1.3f);
             return false;
         }
 
@@ -79,5 +78,13 @@ public class ActorCheckPoints : MonoBehaviour
         _active = false;
         _checkPoint.gameObject.SetActive(false);
         //AudioSource.PlayClipAtPoint(_removeClip, _checkPoint.position);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(_active && other.CompareTag(RESET_TRIGGER_NAME))
+        {
+            Deactivate();
+        }
     }
 }

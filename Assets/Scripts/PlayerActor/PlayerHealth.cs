@@ -26,6 +26,8 @@ public class PlayerHealth : MonoBehaviour, ILaserHandler
 
     public void TakeDamage(float damage)
     {
+        if (_health < 0) return;
+
         _health -= damage;
         _regenTimer = _regenerationCooldown;
 

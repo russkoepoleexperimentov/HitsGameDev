@@ -415,6 +415,7 @@ MonoBehaviour:
   _sensitivity: 10
   _body: {fileID: 5109271350201375622}
   _head: {fileID: 3031166409373290655}
+  _camera: {fileID: 3334987552617136549}
 --- !u!114 &6394060309554612768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,9 +652,9 @@ MonoBehaviour:
   _rigidbody: {fileID: 9063498565237874904}
   _grabber: {fileID: 2956049417940619907}
   _movement: {fileID: 5600831498844015901}
-  _placeClip: {fileID: 8300000, guid: 1dca5f5f513b4494398b04f8a69b7945, type: 3}
+  _placeClip: {fileID: 8300000, guid: 97a47d9b7d9faa449bb26059d70c8f5d, type: 3}
   _removeClip: {fileID: 8300000, guid: cb1f9eba907d89f4186db9ff16d28173, type: 3}
-  _loadClip: {fileID: 8300000, guid: 39a04e7881f34ab4b8dbe6a27c90db73, type: 3}
+  _loadClip: {fileID: 8300000, guid: 908de069a68a58d47912bdae1473fb10, type: 3}
 --- !u!1 &5440994716838377501
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,7 +851,7 @@ MonoBehaviour:
     m_Bits: 1
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 1
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
