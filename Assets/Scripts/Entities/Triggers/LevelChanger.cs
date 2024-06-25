@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class LevelChanger : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            var operation = new LoadingSceneOperation(_nextSceneName);
-            LoadingScreen.Instance.AddToQueue(operation);
+            SceneManager.LoadScene(_nextSceneName);
         }
     }
 }

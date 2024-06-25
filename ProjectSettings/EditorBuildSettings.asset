@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/third_level.unity
     guid: 15fee2bc3d4e6a149b699f4e12a837fd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/level_parkour.unity
     guid: 2d610cb64b5752946a33f9ef12685431
   - enabled: 1
