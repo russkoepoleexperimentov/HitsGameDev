@@ -11093,6 +11093,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
       propertyPath: _activate.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -11110,10 +11114,18 @@ PrefabInstance:
       objectReference: {fileID: 240533873}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
       propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
       propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1439374362}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 65140159}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
@@ -11133,7 +11145,15 @@ PrefabInstance:
       value: set_text
       objectReference: {fileID: 0}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
       propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetState
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: Close
       objectReference: {fileID: 0}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
@@ -11150,6 +11170,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
       propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SwitchablePositionAnimation, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: AutomaticDoor, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
@@ -11164,11 +11188,26 @@ PrefabInstance:
       propertyPath: _activate.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6101748110110886859, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+      propertyPath: _deactivate.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+--- !u!114 &1439374362 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9107998535157374946, guid: 467d29aa389cdc44fb1263d8fdf5c410, type: 3}
+  m_PrefabInstance: {fileID: 1439374361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced5992ce6e75004093e45499fd6799a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1439453125
 PrefabInstance:
   m_ObjectHideFlags: 0
