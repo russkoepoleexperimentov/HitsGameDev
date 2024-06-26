@@ -7,7 +7,7 @@ public class EscExitToMenu : MonoBehaviour
 {
     [SerializeField] private Image _progressCircle;
 
-    private const string MENU_SCENE = "_main_menu";
+    public const string MENU_SCENE = "_main_menu";
     private const float DELAY = 2;
     private const float POPUP_DELAY = 5;
 
