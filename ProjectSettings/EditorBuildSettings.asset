@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/training_room.unity
     guid: 769a280ee08be7c4781cb377dc327305
+  - enabled: 1
+    path: Assets/Scenes/laser_level.unity
+    guid: 9595a947fcc09ef4a92ad6e94a00be4d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 278fb0a2af81d264b84b1973701a0810, type: 2}
