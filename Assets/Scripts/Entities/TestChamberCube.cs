@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -9,6 +10,8 @@ public class TestChamberCube : MonoBehaviour
     private Rigidbody _rigidbody;
     private Collider _collider;
     private bool _isDestroying = false;
+
+    private HashSet<Collider> _triggers = new();
 
     public CubeDispenser AttachedDispenser { get; set; }
 
@@ -22,6 +25,12 @@ public class TestChamberCube : MonoBehaviour
     public void Remove() 
     { 
         if(_isDestroying) return;
+
+        foreach(Collider c in _triggers)
+        {
+            if(c != null)
+                c.SendMessage(nameof(OnTriggerExit), _collider, SendMessageOptions.DontRequireReceiver);
+        }
 
         _isDestroying = true;
         StartCoroutine(Destroy()); 
@@ -44,5 +53,15 @@ public class TestChamberCube : MonoBehaviour
         _rigidbody.isKinematic = true;
 
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        _triggers.Add(other);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _triggers.Remove(other);
     }
 }
