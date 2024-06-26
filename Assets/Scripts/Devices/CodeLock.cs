@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using System.Linq;
 
 public class CodeLock : MonoBehaviour
 {
@@ -24,8 +25,8 @@ public class CodeLock : MonoBehaviour
     {
         if (_entered.Count < _correctCode.Count)
         {
-            _text.text += num.ToString();
             _entered.Add(num);
+            DisplayEntered();
         }
         if (_entered.Count == _correctCode.Count)
         {
@@ -53,6 +54,12 @@ public class CodeLock : MonoBehaviour
         _entered.Clear();
         _text.text = text;
         yield return new WaitForSeconds(0.5f);
-        _text.text = "";
+        DisplayEntered();
+    }
+
+    private void DisplayEntered()
+    {
+        var codeDispl = string.Join("", _entered.ToArray());
+        _text.text = codeDispl;
     }
 }
