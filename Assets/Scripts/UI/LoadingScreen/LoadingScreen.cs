@@ -75,6 +75,7 @@ public class LoadingScreen : MonoBehaviour
         _group.alpha = 0f;
 
         _canvas.enabled = false;
+        _loadingEnabled = false;
     }
 }
 
