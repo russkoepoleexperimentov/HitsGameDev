@@ -18,8 +18,14 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        Saver.OnNewGame();
+        Saver.ResetSave();
         LoadLevel(Saver.GetSavedLevel()); // если нет сохранения он вернет просто первый в игре уровень
+    }
+
+    public void ResetSave()
+    {
+        Saver.ResetSave();
+        _continueButton.SetActive(false);
     }
 
     public void ContinueGame() => LoadLevel(Saver.GetSavedLevel());

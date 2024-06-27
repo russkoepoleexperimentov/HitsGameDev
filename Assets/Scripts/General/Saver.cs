@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.General
 {
-
     public static class Saver
     {
         private const string SAVE_VAR_NAME = "currentLevel";
@@ -11,13 +10,13 @@ namespace Assets.Scripts.General
         // здесь пусть будут все уровни (!)в порядке прохождения игры (названия сцен)
         private static List<string> _gameLevels = new()
         {
+            "third_level",
             "first_level",
             "code_level",
-            "third_level",
             "laser_level",
         };
 
-        public static void OnNewGame()
+        public static void ResetSave()
         {
             if(PlayerPrefs.HasKey(SAVE_VAR_NAME)) 
                 PlayerPrefs.DeleteKey(SAVE_VAR_NAME);

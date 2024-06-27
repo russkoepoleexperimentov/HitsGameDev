@@ -85,6 +85,8 @@ public class ActorCheckPoints : MonoBehaviour
         if(_active && other.CompareTag(RESET_TRIGGER_NAME))
         {
             Deactivate();
+            AudioSource.PlayClipAtPoint(_removeClip, transform.position, 0.3f);
+            CameraShaker.Instance.ShakeOnce(2f, 3f, 0.05f, 0.5f);
         }
     }
 }
