@@ -636,6 +636,11 @@ MonoBehaviour:
   _movement: {fileID: 5600831498844015901}
   _regenerationSpeed: 200
   _regenerationCooldown: 1
+  _hitSounds:
+  - {fileID: 8300000, guid: cd55e126f8b65cb44803c5d9239a469b, type: 3}
+  - {fileID: 8300000, guid: b4d2ac251d9d59d488481a4583a9b473, type: 3}
+  - {fileID: 8300000, guid: 9dc851efaea73074cad3de86cbfa0bb8, type: 3}
+  - {fileID: 8300000, guid: 9bed5c1a9c7293642ac0c28b4c7068eb, type: 3}
 --- !u!114 &1171667244141824501
 MonoBehaviour:
   m_ObjectHideFlags: 0
