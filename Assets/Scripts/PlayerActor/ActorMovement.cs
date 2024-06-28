@@ -22,7 +22,10 @@ namespace Actor
         [SerializeField] private float _crouchMovementSpeed = 3.5f;
         [SerializeField] private float _jumpForce = 500;
         [SerializeField] private float _crouchHeight = 1.0f;
+		[SerializeField] private Vector2 _cameraYLevel = new(0.234f, 0.701f); // x for crouching, y for standing
+		[SerializeField] private float _crouchLerpSpeed = 5f;
         [SerializeField] private Transform _view;
+        [SerializeField] private Transform _pivot;
 
         private float _originalHeight;
 
@@ -73,16 +76,24 @@ namespace Actor
                 var force = _jumpForce * Vector3.up;
                 _rigidbody.AddForce(force, ForceMode.Impulse);
             }
+			
+			var targetH = _originalHeight;
+			var targetY = _cameraYLevel.y;
+			
             if (_crouch.IsPressed())
             {
                 _onCrouch = true;
-                _collider.height = _crouchHeight;
+				targetH = _crouchHeight;
+				targetY= _cameraYLevel.x;
             }
             else
             {
                 _onCrouch = false;
-                _collider.height = _originalHeight;
             }
+			
+			var t = Time.deltaTime * _crouchLerpSpeed;
+			_collider.height = Mathf.Lerp(_collider.height, targetH, t);
+			_pivot.localPosition = Vector3.up * Mathf.Lerp(_pivot.localPosition.y, targetY, t);
 
             if(Input.GetKeyDown(KeyCode.V))
             {

@@ -379,7 +379,10 @@ MonoBehaviour:
   _crouchMovementSpeed: 3.5
   _jumpForce: 18
   _crouchHeight: 1
+  _cameraYLevel: {x: 0.3, y: 0.701}
+  _crouchLerpSpeed: 5
   _view: {fileID: 2549557534126103025}
+  _pivot: {fileID: 3031166409373290655}
   _groundCheckRadius: 0.29
   _groundCheckHeight: 0.91
   _groundCheckOffset: {x: 0, y: 0, z: 0}

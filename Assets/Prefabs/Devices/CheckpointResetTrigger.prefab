@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9075977730939139976}
   - component: {fileID: 2258721158823985973}
   - component: {fileID: 7006163199846340631}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckpointResetTrigger
   m_TagString: CheckPointReset
   m_Icon: {fileID: 0}
