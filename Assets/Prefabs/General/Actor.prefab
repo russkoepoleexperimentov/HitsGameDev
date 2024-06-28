@@ -653,7 +653,7 @@ MonoBehaviour:
   _grabber: {fileID: 2956049417940619907}
   _movement: {fileID: 5600831498844015901}
   _placeClip: {fileID: 8300000, guid: 97a47d9b7d9faa449bb26059d70c8f5d, type: 3}
-  _removeClip: {fileID: 8300000, guid: cb1f9eba907d89f4186db9ff16d28173, type: 3}
+  _removeClip: {fileID: 8300000, guid: 5c32c008ff6bc1645bd90cee695bff7b, type: 3}
   _loadClip: {fileID: 8300000, guid: 908de069a68a58d47912bdae1473fb10, type: 3}
 --- !u!1 &5440994716838377501
 GameObject:
